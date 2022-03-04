@@ -8,8 +8,8 @@ import CanvasDemo from './dev/CanvasDemo';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: 'blue',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
 });
