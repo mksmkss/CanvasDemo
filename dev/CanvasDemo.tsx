@@ -1,73 +1,61 @@
-import React, { useRef } from 'react';
-import { View, Image } from 'react-native';
-import SignatureScreen from 'react-native-signature-canvas';
+import * as React from 'react';
+import { View, Image, Animated } from 'react-native';
 
-function Sign({ text, onOK }) {
-  const ref = useRef();
-  const [signature, setSignature] = React.useState('');
+import { Button, Text } from 'react-native-paper';
 
-  // Called after ref.current.readSignature() reads a non-empty base64 string
-  const handleOK = (sign) => {
-    // console.log(sign); // 描いたデータ
-    onOK(sign); // Callback from Component props
-    setSignature(sign);
-    console.log('描き終わった');
-  };
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { Canvas, CanvasRef, DrawingTool } from '@benjeau/react-native-draw';
+import ColorPicker from 'react-native-wheel-color-picker';
 
-  // Called after ref.current.readSignature() reads an empty string
-  const handleEmpty = () => {
-    console.log('Empty');
-  };
+const CanvasDemo = gestureHandlerRootHOC(() => {
+  const [isRed, setIsRed] = React.useState(false);
+  const [isHighLighter, setIsHighLighter] = React.useState(false);
+  const [tool, setTool] = React.useState(DrawingTool.Brush);
+  const [color, setColor] = React.useState('#FFFFFF');
+  const ref = React.useRef<CanvasRef>();
 
-  // Called after ref.current.clearSignature()
-  const handleClear = () => {
-    console.log('clear success!');
-  };
-
-  // Called after end of stroke
-  const handleEnd = () => {
-    ref.current.readSignature();
-  };
-
-  // Called after ref.current.getData()
-  const handleData = (data) => {
-    // console.log(data);
+  const handleToggleEraser = () => {
+    setTool((prev) => (prev === DrawingTool.Brush ? DrawingTool.Eraser : DrawingTool.Brush));
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'yellow' }}>
-      <View style={{flex:1}}>
-        {signature ? (
-          <Image
-            resizeMode="contain"
-            style={{ width: 335, height: 114 }}
-            source={{ uri: signature }}
-          />
-          //書き終わった文字の事
-        ) : null}
-      </View>
-      <SignatureScreen
+    <View style={{
+      flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'gray',
+    }}
+    >
+      <Canvas
         ref={ref}
-        onEnd={handleEnd}
-        onOK={handleOK}
-        onEmpty={handleEmpty}
-        onClear={handleClear}
-        onGetData={handleData}
-        // backgroundColor="rgba(0,255,0,.8)"
-        dotSize={1}
-        webviewContainerStyle={{backgroundColor: 'orange'}}
-        style={{flex: 1, backgroundColor: 'green'}}
-        minWidth={1}
-        maxWidth={1}
-        // autoClear
-        descriptionText="Sign above (test)"
-          // clearText="Clear (test)"
-        webStyle=".m-signature-pad { background: red; margin-top: 0px; margin-left: 0px; width: 100%;} .rotated-<%orientation%> { background: skyblue; height: 100%; }"
-        // .m-signature-pad--footer {display: none; margin: 0px;} 
+        color={color}
+        thickness={isHighLighter ? 10 : 5}
+        opacity={isHighLighter ? 0.5 : 1}
+        height={200}
+        width={800}
+        tool={tool}
+        onPathsChange={() => console.log('onPathsChange')}
       />
-      <View style={{flex:1, backgroundColor: 'skyblue'}}></View>
+      <Button onPress={() => { console.log(ref.current?.getPaths()); }}>Get Paths</Button>
+      <Button onPress={handleToggleEraser}>Toggle Eraser</Button>
+      <Button onPress={() => setIsHighLighter(!isHighLighter)}>Toggle Highlighter</Button>
+      <Text>{color}</Text>
+      <View style={{ height: 100, width: 300 }}>
+        <ColorPicker
+          // ref={(r) => { this.picker = r; }}
+          color={color}
+          // swatchesOnly={this.state.swatchesOnly}
+          onColorChange={(_color) => setColor(_color)}
+          // onColorChangeComplete={this.onColorChangeComplete}
+          thumbSize={40}
+          sliderSize={30}
+          // noSnap
+          row={false}
+          palette={['#000000', '#AAAAAA', '#FFFFFF', '#ed1c24', '#ff6e00', '#ffde17', '#008e42', '#00aeef', '#1633e6', '#d11cd5', '#c65757']}
+          // swatchesLast={this.state.swatchesLast}
+          // swatches={this.state.swatchesEnabled}
+          // discrete
+        />
+      </View>
     </View>
   );
-}
+});
 
-export default Sign;
+export default CanvasDemo;
