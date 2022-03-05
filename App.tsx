@@ -1,7 +1,7 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import {
-  StyleSheet, Text, View, TouchableOpacity,
+  StyleSheet, View,
 } from 'react-native';
 import CanvasDemo from './dev/CanvasDemo';
 
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const [text, setText] = React.useState('Hello World');
-  const [count, setCount] = React.useState(0);
+  // const [text, setText] = React.useState('Hello World');
+  // const [count, setCount] = React.useState(0);
 
   return (
     <View style={styles.container}>
