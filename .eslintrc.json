@@ -25,14 +25,10 @@
     },
     "settings": {
         "import/resolver": {
-            "node": {
-              "extensions": [
-                ".js",
-                ".jsx",
-                ".json",
-                ".ts",
-                ".tsx"
-              ]
+            "node": { "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"] },
+            "alias": {
+                "map": [["dev","./dev"]],
+                "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]
             }
           }
         }
