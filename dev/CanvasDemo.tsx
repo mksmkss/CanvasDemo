@@ -7,8 +7,22 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { Canvas, CanvasRef, DrawingTool } from '@benjeau/react-native-draw';
 import ColorPicker from 'react-native-wheel-color-picker';
 
+const testPath = {
+  color: '#00ffff',
+  combine: false,
+  data: [
+    [[0, 0], [10, 10], [20, 20], [30, 30], [40, 40], [50, 50], [60, 60], [70, 70], [80, 80], [90, 90], [100, 100]],
+    [[200, 0], [210, 10], [220, 20], [230, 30], [240, 40], [250, 50], [260, 60], [270, 70], [280, 80], [290, 90], [300, 100]],
+  ],
+  path: [
+    'M0,0c0,0 100,100 100,100',
+    'M200,0c0,0 100,100 100,100',
+  ],
+  opacity: 1,
+  thickness: 5,
+};
+
 const CanvasDemo = gestureHandlerRootHOC(() => {
-  const [isRed, setIsRed] = React.useState(false);
   const [isHighLighter, setIsHighLighter] = React.useState(false);
   const [tool, setTool] = React.useState(DrawingTool.Brush);
   const [color, setColor] = React.useState('#FFFFFF');
@@ -31,11 +45,20 @@ const CanvasDemo = gestureHandlerRootHOC(() => {
         height={200}
         width={800}
         tool={tool}
-        onPathsChange={() => console.log('onPathsChange')}
+        // initialPaths={[testPath]}
+        // onPathsChange={() => console.log()}
+        // combineWithLatestPath
+        simplifyOptions={{
+          amount: 1,
+          simplifyCurrentPath: true,
+        }}
       />
       <Button onPress={() => { console.log(ref.current?.getPaths()); }}>Get Paths</Button>
       <Button onPress={handleToggleEraser}>Toggle Eraser</Button>
       <Button onPress={() => setIsHighLighter(!isHighLighter)}>Toggle Highlighter</Button>
+      <Button onPress={() => console.log(ref.current?.getSvg())}>Get SVG</Button>
+      <Button onPress={() => console.log(ref.current?.getPaths())}>Get Path</Button>
+      <Button onPress={() => ref.current?.addPath(testPath)}>Add Path</Button>
       <Text>{color}</Text>
       <View style={{ height: 100, width: 300 }}>
         <ColorPicker
