@@ -6,6 +6,7 @@ import {
 import { Button } from 'react-native-paper';
 import CanvasDemo from './dev/CanvasDemo';
 import Paper from './dev/Paper';
+import RootNavigator from './dev/nav';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +22,13 @@ export default function App() {
   const [screen, setScreen] = React.useState(0);
 
   return (
-    <View style={styles.container}>
-      {screen === 0 ? <CanvasDemo /> : <Paper />}
-      <Button onPress={() => setScreen((prev) => (prev === 0 ? 1 : 0))}>Change Screen</Button>
-    </View>
+    <RootNavigator />
   );
+
+  // return (
+  //   <View style={styles.container}>
+  //     {screen === 0 ? <CanvasDemo /> : <Paper />}
+  //     <Button onPress={() => setScreen((prev) => (prev === 0 ? 1 : 0))}>Change Screen</Button>
+  //   </View>
+  // );
 }

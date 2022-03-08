@@ -25,7 +25,7 @@ const testPath = {
 const CanvasDemo = gestureHandlerRootHOC(() => {
   const [isHighLighter, setIsHighLighter] = React.useState(false);
   const [tool, setTool] = React.useState(DrawingTool.Brush);
-  const [color, setColor] = React.useState('#FFFFFF');
+  const [color, setColor] = React.useState('#FF0000');
   const ref = React.useRef<CanvasRef>();
 
   const handleToggleEraser = () => {
