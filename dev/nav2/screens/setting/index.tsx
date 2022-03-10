@@ -3,15 +3,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ParamList from './ParamList';
 
-import SettingMain from './SettingMain';
-import SettingDetail from './SettingDetail';
+import SettingMain from './screens/SettingMain';
+import SettingDetail from './screens/SettingDetail';
 
 const SettingStack = createNativeStackNavigator<ParamList>();
 function SettingNavigator() {
   return (
     <SettingStack.Navigator>
       <SettingStack.Screen name="Setting Main" component={SettingMain} />
-      <SettingStack.Screen name="SettingDetail" component={SettingDetail} />
+      <SettingStack.Screen name="Setting Detail" component={SettingDetail} />
     </SettingStack.Navigator>
   );
 }

@@ -6,7 +6,7 @@ import ParamList from './ParamList';
 
 import HelloWorld from './HelloWorld';
 import Detail from './Detail';
-// import SettingNavigator from './setting';
+import SettingNavigator from './setting';
 
 const RootStack = createNativeStackNavigator<ParamList>();
 function RootNavigator() {
@@ -15,7 +15,7 @@ function RootNavigator() {
       <RootStack.Navigator>
         <RootStack.Screen name="Hello World" component={HelloWorld} options={{ headerShown: false }} />
         <RootStack.Screen name="Detail" component={Detail} />
-        {/* <RootStack.Screen name="Setting" component={SettingNavigator} /> */}
+        <RootStack.Screen name="Setting" component={SettingNavigator} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

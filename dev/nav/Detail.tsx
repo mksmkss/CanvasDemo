@@ -15,20 +15,22 @@ const styles = StyleSheet.create({
 });
 
 type NavigationProps = NativeStackScreenProps<ParamList, 'Detail'>;
-interface DetailProps {
-  navigation: NavigationProps['navigation'];
+interface DetailProps extends NavigationProps {
+  // navigation: NavigationProps['navigation'];
   // route: NavigationProps['route'];
-}
-interface DetailProps {
 }
 
 function Detail(props: DetailProps) {
-  const { navigation } = props;
+  const { navigation, route } = props;
   return (
     <View style={styles.container}>
       <Text>This is Detail</Text>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text>GO back</Text>
+      </TouchableOpacity>
+      <Text>{JSON.stringify({ route })}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+        <Text>Go to Setting</Text>
       </TouchableOpacity>
     </View>
   );

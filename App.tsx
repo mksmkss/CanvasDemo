@@ -6,7 +6,7 @@ import {
 import { Button } from 'react-native-paper';
 import CanvasDemo from './dev/CanvasDemo';
 import Paper from './dev/Paper';
-import RootNavigator from './dev/nav';
+import RootNavigator from './dev/nav2';
 
 const styles = StyleSheet.create({
   container: {

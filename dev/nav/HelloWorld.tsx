@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
 });
 
 type NavigationProps = NativeStackScreenProps<ParamList, 'Hello World'>;
-interface HelloWorldProps {
-  navigation: NavigationProps['navigation'];
+interface HelloWorldProps extends NavigationProps {
+  // navigation: NavigationProps['navigation'];
   // route: NavigationProps['route'];
 }
 
@@ -25,7 +25,6 @@ function HelloWorld(props: HelloWorldProps) {
   return (
     <View style={styles.container}>
       <Text>Hello, World!</Text>
-      <Text>これが見られたら更新できてる</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
         <Text>Go to Detail</Text>
       </TouchableOpacity>
